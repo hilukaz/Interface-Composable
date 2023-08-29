@@ -6,12 +6,16 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
@@ -19,6 +23,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,13 +36,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -63,8 +75,8 @@ fun App(){
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        Column() {
-            BottomAppBarWithFAB()
+        Column {
+            SimpleCenterAlignedTopAppBar()
         }
 
         Column (
@@ -72,27 +84,25 @@ fun App(){
             verticalArrangement = Arrangement.SpaceEvenly
         ){
 
-            ClickableElevatedCardSample()
-            ClickableElevatedCardSample()
+            Formulario()
+
+
+        }
+        /*Column(
+            horizontalAlignment= Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(100.dp),
+        ) {
             ExtendedFloatingActionButtonTextSample()
-        }
+        }*/
     }
 }
 
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ClickableElevatedCardSample() {
-    ElevatedCard(
-        onClick = { /* Do something */ },
-        modifier = Modifier.size(width = 180.dp, height = 100.dp)
-    ) {
-        Box(Modifier.fillMaxSize()) {
-            Text("Card", Modifier.align(Alignment.Center))
-        }
-    }
-}
+
 @Preview(showBackground = true)
 @Composable
 fun AppPreview() {
@@ -101,43 +111,119 @@ fun AppPreview() {
 
 
 
-@Composable
-fun BottomAppBarWithFAB() {
-    BottomAppBar(
-        actions = {
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(Icons.Filled.Check, contentDescription = "Localized description")
-            }
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(
-                    Icons.Filled.Edit,
-                    contentDescription = "Localized description",
-                )
-            }
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { /* do something */ },
-                containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
-                elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
-            ) {
-                Icon(Icons.Filled.Add, "Localized description")
-            }
-        }
-    )
-}
+
+
 @Preview
-@Composable
-fun bottomPrevie(){
-    BottomAppBarWithFAB()
+@Composable()
+fun previewForm(){
+    Formulario()
 }
 
 @Composable
 fun ExtendedFloatingActionButtonTextSample() {
     ExtendedFloatingActionButton(onClick = { /* do something */ }) {
-        Text(text = "Extended FAB")
+        Text(text = "Cadastrar usuário")
     }
 }
 
+@Composable
+fun Formulario() {
+    val dataContato = remember { mutableStateOf("") }
+    val endereco = remember { mutableStateOf("") }
+    val nome = remember { mutableStateOf("") }
+    val observacao = remember { mutableStateOf("") }
+    val origem = remember { mutableStateOf("") }
 
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    )
+    {
+        Text(
+            "Cadastro",
+            style = MaterialTheme.typography.bodyLarge.copy(fontSize = 40.sp),
+            color = MaterialTheme.colorScheme.primary,
+        )
+
+        Spacer(modifier = Modifier.height(70.dp))
+
+        TextField(
+            value = endereco.value,
+            onValueChange = { endereco.value = it },
+            label = { Text("Nome") },
+            modifier = Modifier.testTag("enderecoTextField")
+        )
+        TextField(
+            value = nome.value,
+            onValueChange = { nome.value = it },
+            label = { Text("Endereço") },
+            modifier = Modifier.testTag("nomeTextField")
+        )
+        TextField(
+            value = observacao.value,
+            onValueChange = { observacao.value = it },
+            label = { Text("Email") },
+            modifier = Modifier.testTag("observacaoTextField")
+        )
+        TextField(
+            value = origem.value,
+            onValueChange = { origem.value = it },
+            label = { Text("Senha") },
+            modifier = Modifier.testTag("origemTextField")
+        )
+        Spacer(modifier = Modifier.height(40.dp))
+        ExtendedFloatingActionButtonTextSample()
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SimpleCenterAlignedTopAppBar() {
+    val customColors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+        Color.Gray,
+    )
+    Scaffold(
+
+        topBar = {
+            CenterAlignedTopAppBar(
+                colors = customColors,
+                title = {
+                    Text(
+                        "Formulario",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = { /* doSomething() */ }) {
+                        Icon(
+                            imageVector = Icons.Filled.Menu,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { /* doSomething() */ }) {
+                        Icon(
+                            imageVector = Icons.Filled.AccountBox,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                }
+            )
+        },
+        content = { innerPadding ->
+            LazyColumn(
+                contentPadding = innerPadding,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+
+            }
+        }
+    )
+
+}
 
