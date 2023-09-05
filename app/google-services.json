@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "584089404765",
+    "project_id": "composable-654a2",
+    "storage_bucket": "composable-654a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584089404765:android:fb3b316cbaaecff67a94b4",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584089404765-e9mve3rc3lnor9ru8031k4j7f8gamscp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu0HMZh0sgrO_5Q2m0EXU2FLuPIsS3jJg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "584089404765-e9mve3rc3lnor9ru8031k4j7f8gamscp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
