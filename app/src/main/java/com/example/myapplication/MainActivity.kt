@@ -47,6 +47,7 @@ import java.util.Calendar
 import android.app.DatePickerDialog;
 import android.widget.DatePicker
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -202,7 +203,10 @@ fun Formulario() {
                 onClick = {
                     datePicker.show()
                 },
-                modifier = Modifier.testTag("dataTextField")
+                modifier = Modifier
+                    .width(300.dp)
+                    .testTag("dateTextField")
+
             ) {
                 Text(
                     text = if (selectedDateText.isNotEmpty()) {
